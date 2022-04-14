@@ -2,7 +2,8 @@ FROM alpine:latest
 
 MAINTAINER Pezhvak
 
-RUN apk update && apk add musl-dev iptables gnutls-dev gnutls-utils readline-dev libnl3-dev lz4-dev libseccomp-dev libev-dev
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+    && apk update && apk add musl-dev iptables gnutls-dev gnutls-utils readline-dev libnl3-dev lz4-dev libseccomp-dev libev-dev
 
 RUN buildDeps="xz openssl gcc autoconf make linux-headers"; \
 	set -x \
