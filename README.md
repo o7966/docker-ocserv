@@ -4,7 +4,33 @@
 
 原使用说明写的很好了，请阅读这里：https://github.com/Pezhvak/docker-ocserv/blob/master/README.md 
 
-根据自己的需求做了一些修改：
+## 流水账：
+
+不像看到讨厌的SSL证书提示，我去可信亚洲申请了一年的证书，放到了`/docker/ocserv`在配置改一下：
+
+```bash
+# docker-compose.yml:
+version: '3.0'
+services:
+  ocserv:
+    image: ocserv
+    restart: always
+    container_name: ocserv
+    privileged: true
+    hostname: ssl.hostname.xyz
+    ports:
+      - 1342:443/udp
+      - 1342:443
+    volumes:
+      - "/docker/ocserv/data:/etc/ocserv/data"
+      - "/docker/ocserv/ssl.hostname.xyz_bundle.pem:/etc/ocserv/server-cert.pem"
+      - "/docker/ocserv/ssl.hostname.xyz.key:/etc/ocserv/server-key.pem"
+
+```
+
+
+
+根据自己的需求还做了一些修改：
 
 ```bash
 # Dockerfile:增加了国内的源可以让下载快点🙈
